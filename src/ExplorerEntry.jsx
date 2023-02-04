@@ -12,11 +12,9 @@ function Entry({ node }) {
             <>
                 <div
                     className={joinClasses(styles.entryWrapper, styles.folder)}
+                    onClick={() => setIsExpanded((e) => !e)}
                 >
-                    <div
-                        onClick={() => setIsExpanded((e) => !e)}
-                        className={styles.label}
-                    >
+                    <div className={styles.label}>
                         <FontAwesomeIcon
                             icon={faChevronRight}
                             className={joinClasses(
