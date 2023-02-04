@@ -2,11 +2,16 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./Pane.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faFile } from "@fortawesome/free-solid-svg-icons";
-import { joinClasses } from "./utils";
+import { joinClasses, lastArrayElt } from "./utils";
+import SyntaxHighlighter from "react-syntax-highlighter";
+import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
-const getFilename = (path) => {
+const parsePath = (path) => {
     let splitPath = path.split("/");
-    return splitPath[splitPath.length - 1];
+    let filename = splitPath[splitPath.length - 1];
+    let splitFilename = filename.split(".");
+    let extension = splitFilename[splitFilename.length - 1];
+    return [extension];
 };
 
 function Pane({ path, pane, initOffset, closeFile }) {
@@ -15,7 +20,8 @@ function Pane({ path, pane, initOffset, closeFile }) {
     const [movingOffset, setMovingOffset] = useState({ x: 0, y: 0 });
     const paneHeaderRef = useRef(null);
 
-    const filename = getFilename(path);
+    const filename = lastArrayElt(path.split("/"));
+    const extension = lastArrayElt(filename.split("."));
 
     // moveable panes logic
     useEffect(() => {
@@ -91,11 +97,19 @@ function Pane({ path, pane, initOffset, closeFile }) {
                     onClick={() => closeFile(path)}
                 />
             </div>
-            <pre className={styles.fileContents}>
+            {/* <pre className={styles.fileContents}>
                 {pane.content.split("\n").map((line, i) => (
                     <span key={i}>{line}</span>
                 ))}
-            </pre>
+            </pre> */}
+            <SyntaxHighlighter
+                language={extension}
+                style={docco}
+                className={styles.highlightedContents}
+                showLineNumbers
+            >
+                {pane.content}
+            </SyntaxHighlighter>
         </div>
     );
 }
