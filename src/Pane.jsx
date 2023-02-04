@@ -54,13 +54,21 @@ function Pane({ path, pane, initOffset, paneContainerRef }) {
                 }
             };
 
+            const handleDragStart = (e) => {
+                if (startPos) {
+                    e.preventDefault();
+                }
+            };
+
             paneHeader.addEventListener("mousedown", mouseDown);
             document.addEventListener("mouseup", mouseUp);
             document.addEventListener("mousemove", mouseMove);
+            document.addEventListener("dragstart", handleDragStart);
             return () => {
                 paneHeader.removeEventListener("mousedown", mouseDown);
                 document.removeEventListener("mouseup", mouseUp);
                 document.removeEventListener("mousemove", mouseMove);
+                document.removeEventListener("dragstart", handleDragStart);
             };
         }
     }, [offset]);
@@ -82,7 +90,10 @@ function Pane({ path, pane, initOffset, paneContainerRef }) {
                     &nbsp;
                     {filename}
                 </div>
-                <FontAwesomeIcon icon={faXmark} />
+                <FontAwesomeIcon
+                    icon={faXmark}
+                    className={styles.closeButton}
+                />
             </div>
             <pre className={styles.fileContents}>
                 {contents.split("\n").map((line, i) => (
