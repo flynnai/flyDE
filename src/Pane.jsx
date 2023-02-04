@@ -78,7 +78,7 @@ function Pane({
 
     return (
         <div
-            className={joinClasses(styles.main, "FIXME" && styles.active)}
+            className={joinClasses(styles.main, isActive && styles.active)}
             style={{
                 left: offset.x + movingOffset.x,
                 top: offset.y + movingOffset.y,

@@ -24,17 +24,16 @@ function App() {
     console.log("Filetree is ", fileTree);
 
     const openFile = async (path) => {
-        if (path in panes) {
-            // TODO focus the pane
-            return;
+        if (!(path in panes)) {
+            setPanes({
+                ...panes,
+                [path]: {
+                    content: await getFileContents(path),
+                    order: Object.values(panes).length,
+                },
+            });
         }
-        setPanes({
-            ...panes,
-            [path]: {
-                content: await getFileContents(path),
-                order: Object.values(panes).length,
-            },
-        });
+        movePaneToFront(path);
     };
 
     const closeFile = (path) => {
