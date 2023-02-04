@@ -1,16 +1,18 @@
-import { useSelector } from "react-redux";
+import { useState } from "react";
 import styles from "./App.module.scss";
 import MenuColumn from "./MenuColumn";
 import Pane from "./Pane";
+import useSimFilesystem from "./useSimFilesystem";
 
 function App() {
-    const panesPaths = useSelector((state) => Object.keys(state.panes));
-
+    const [panes, setPanes] = useState({});
+    const { fileTree } = useSimFilesystem();
+    console.log("Filetree is ", fileTree);
     return (
         <div className={styles.main}>
             <div className={styles.workArea}>
                 <MenuColumn />
-                {panesPaths.map((path) => (
+                {Object.keys(panes).map((path) => (
                     <Pane path={path} />
                 ))}
             </div>

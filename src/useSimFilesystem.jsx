@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { useState, useRef } from "react";
 import JSZip from "jszip";
 
 const createEntryShape = (name, isFolder) => ({
@@ -7,20 +7,20 @@ const createEntryShape = (name, isFolder) => ({
 });
 
 // each of these methods operates on the JSZip underlying object, and
-// also Redux state. The two should mirror each other identically after any of them are called.
+// also fileTree state. The two should mirror each other identically after any of them are called.
 class SimFileSystem {
     constructor() {
         this.zip = null;
     }
 
-    async loadZip(file, reduxState) {
+    async loadZip(file, setFileTree) {
         // load file into JSZip
         this.zip = await JSZip.loadAsync(file);
-        reduxState.root = this.#constructTree();
+        setFileTree({ root: this.#constructTree() });
     }
 
     #constructTree() {
-        // turn JSZip file list into hierarchical Redux structure
+        // turn JSZip file list into hierarchical structure
         const tree = createEntryShape("/", true);
         this.zip.forEach((relativePath, entry) => {
             if (entry.dir) {
@@ -47,23 +47,14 @@ class SimFileSystem {
     }
 }
 
-const filesys = new SimFileSystem();
+const useSimFilesystem = () => {
+    const filesysRef = useRef(new SimFileSystem());
+    const filesys = filesysRef.current;
+    const [fileTree, setFileTree] = useState({ root: null });
+    return {
+        fileTree,
+        loadZip: (file) => filesys.loadZip(file, setFileTree),
+    };
+};
 
-export const fileTreeSlice = createSlice({
-    name: "fileTree",
-    initialState: {
-        root: null,
-    },
-    reducers: {
-        // each uses "immer" under the hood
-        loadZipFile: (state, action) => {
-            const { file } = action;
-            console.log("File is ", file);
-            filesys.loadZip(file, state);
-        },
-    },
-});
-
-export const { loadZipFile } = fileTreeSlice.actions;
-
-export default fileTreeSlice.reducer;
+export default useSimFilesystem;
