@@ -4,11 +4,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faFile } from "@fortawesome/free-solid-svg-icons";
 import { joinClasses } from "./utils";
 
+const getFilename = (path) => {
+    let splitPath = path.split("/");
+    return splitPath[splitPath.length - 1];
+};
+
 function Pane({ path, pane, initOffset, paneContainerRef }) {
     const [offset, setOffset] = useState({ x: initOffset.x, y: initOffset.y });
     const [movingOffset, setMovingOffset] = useState({ x: 0, y: 0 });
     const paneRef = useRef(null);
     const paneHeaderRef = useRef(null);
+
+    const filename = getFilename(path);
 
     // moveable panes logic
     useEffect(() => {
@@ -16,7 +23,6 @@ function Pane({ path, pane, initOffset, paneContainerRef }) {
         const paneHeader = paneHeaderRef.current;
         const pageContainer = paneContainerRef.current;
         if (paneElt && paneHeader && pageContainer) {
-            let isResizing = false;
             let startPos = null;
 
             const mouseDown = (e) => {
@@ -30,7 +36,10 @@ function Pane({ path, pane, initOffset, paneContainerRef }) {
                     let diffX = e.clientX - startPos.x;
                     let diffY = e.clientY - startPos.y;
                     setMovingOffset({ x: 0, y: 0 });
-                    setOffset(({ x, y }) => ({ x: x + diffX, y: y + diffY }));
+                    setOffset(({ x, y }) => ({
+                        x: Math.max(x + diffX, 0),
+                        y: Math.max(y + diffY, 0),
+                    }));
                     startPos = null;
                 }
             };
@@ -39,6 +48,8 @@ function Pane({ path, pane, initOffset, paneContainerRef }) {
                 if (startPos) {
                     let diffX = e.clientX - startPos.x;
                     let diffY = e.clientY - startPos.y;
+                    diffX = Math.max(-offset.x, diffX);
+                    diffY = Math.max(-offset.y, diffY);
                     setMovingOffset({ x: diffX, y: diffY });
                 }
             };
@@ -52,7 +63,7 @@ function Pane({ path, pane, initOffset, paneContainerRef }) {
                 document.removeEventListener("mousemove", mouseMove);
             };
         }
-    }, []);
+    }, [offset]);
 
     const contents = JSON.stringify(pane, null, 2);
 
@@ -69,7 +80,7 @@ function Pane({ path, pane, initOffset, paneContainerRef }) {
                 <div className={styles.filename}>
                     <FontAwesomeIcon icon={faFile} />
                     &nbsp;
-                    {pane.name}
+                    {filename}
                 </div>
                 <FontAwesomeIcon icon={faXmark} />
             </div>
