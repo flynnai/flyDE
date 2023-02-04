@@ -1,4 +1,19 @@
+@use "base";
 .entryWrapper {
+    background-color: white;
+    transition: background-color base.$hover-timing;
+    padding: 0.3em;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 0.8rem;
+    .icon {
+        margin-right: 0.25em;
+    }
+
+    &:hover {
+        background-color: #efefef;
+    }
+
     &.folder {
         .icon {
             transform: rotate(0deg);
