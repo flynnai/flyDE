@@ -1,2 +1,40 @@
 .main {
+    position: absolute;
+    width: 400px;
+    height: 300px;
+    background-color: purple;
+    box-sizing: border-box;
+
+    .header {
+        box-sizing: border-box;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        width: 100%;
+
+        font-size: 0.75rem;
+        padding: 0.2em 0.5em;
+        background-color: green;
+    }
+
+    pre.fileContents {
+        font-size: 0.75rem;
+        counter-reset: line;
+        white-space: pre-wrap;
+        margin: 0;
+        span {
+            display: block;
+            background-color: white;
+            &:nth-of-type(odd) {
+                background-color: #eee;
+            }
+            &:before {
+                counter-increment: line;
+                content: counter(line);
+                display: inline-block;
+                min-width: 2em;
+                color: #aaa;
+            }
+        }
+    }
 }

@@ -5,5 +5,9 @@
         width: 100%;
         display: flex;
         flex-flow: row nowrap;
+        .paneContainer {
+            width: 100%;
+            position: relative;
+        }
     }
 }
