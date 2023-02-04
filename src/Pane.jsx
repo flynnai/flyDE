@@ -9,7 +9,7 @@ const getFilename = (path) => {
     return splitPath[splitPath.length - 1];
 };
 
-function Pane({ path, pane, initOffset }) {
+function Pane({ path, pane, initOffset, closeFile }) {
     console.log("Rendering pane:", pane);
     const [offset, setOffset] = useState({ x: initOffset.x, y: initOffset.y });
     const [movingOffset, setMovingOffset] = useState({ x: 0, y: 0 });
@@ -88,6 +88,7 @@ function Pane({ path, pane, initOffset }) {
                 <FontAwesomeIcon
                     icon={faXmark}
                     className={styles.closeButton}
+                    onClick={() => closeFile(path)}
                 />
             </div>
             <pre className={styles.fileContents}>

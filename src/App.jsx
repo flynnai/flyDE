@@ -3,6 +3,7 @@ import styles from "./App.module.scss";
 import MenuColumn from "./MenuColumn";
 import Pane from "./Pane";
 import useSimFilesystem from "./useSimFilesystem";
+import { omit } from "./utils";
 
 const paneInitOffsets = new Array(10)
     .fill(0)
@@ -32,6 +33,10 @@ function App() {
         });
     };
 
+    const closeFile = (path) => {
+        setPanes({ ...omit(path, panes) });
+    };
+
     return (
         <div className={styles.main}>
             <div className={styles.workArea}>
@@ -47,6 +52,7 @@ function App() {
                             pane={pane}
                             initOffset={getInitOffset(i)}
                             key={path}
+                            closeFile={closeFile}
                         />
                     ))}
                 </div>
