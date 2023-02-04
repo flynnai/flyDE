@@ -1,13 +1,42 @@
-.main {
-    display: flex;
-    flex-flow: column nowrap;
-    .topRow {
-        display: flex;
-        flex-flow: row nowrap;
-        .zipFilename {
-        }
+@use "base";
 
-        .menu {
+.main {
+    width: auto;
+    height: 100vh;
+    background-color: purple;
+
+    display: flex;
+    flex-flow: row nowrap;
+    .dragWrapper {
+        display: flex;
+        flex-flow: column nowrap;
+        width: 100%;
+        overflow-x: scroll;
+        .topRow {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+            padding: 0.5em;
+
+            .zipFilename {
+            }
+
+            .menu {
+                padding: 0.1em 0.5em;
+                border-radius: 4px;
+                background-color: transparent;
+                transition: background-color base.$hover-timing;
+
+                &:hover {
+                    background-color: rgba(255, 255, 255, 0.5);
+                    cursor: pointer;
+                }
+            }
         }
+    }
+    .dragHandle {
+        height: 100%;
+        background-color: green;
+        cursor: ew-resize;
     }
 }

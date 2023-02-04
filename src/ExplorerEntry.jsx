@@ -1,37 +1,43 @@
 import { useState } from "react";
 import styles from "./ExplorerEntry.module.scss";
-import { DirNode } from "./FileExplorer";
 import { joinClasses } from "./utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
 function Entry({ node }) {
-    const [isExpanded, setIsExpanded] = useState(false);
-    if (node instanceof DirNode) {
+    const [isExpanded, setIsExpanded] = useState(true);
+    console.log("Rendering entry for node", node.children);
+    if ("children" in node) {
         return (
-            <div
-                className={joinClasses(
-                    styles.entryWrapper,
-                    styles.folder,
-                    !isExpanded && styles.hidden
-                )}
-            >
+            <>
                 <div
-                    onClick={() => setIsExpanded((e) => !e)}
-                    className={styles.label}
+                    className={joinClasses(styles.entryWrapper, styles.folder)}
                 >
-                    <FontAwesomeIcon
-                        icon={faChevronRight}
-                        className={joinClasses(styles.chevron)}
-                    />{" "}
-                    {node.name}
+                    <div
+                        onClick={() => setIsExpanded((e) => !e)}
+                        className={styles.label}
+                    >
+                        <FontAwesomeIcon
+                            icon={faChevronRight}
+                            className={joinClasses(
+                                styles.icon,
+                                isExpanded && styles.rotate
+                            )}
+                        />{" "}
+                        {node.name}
+                    </div>
                 </div>
-                <div className={styles.contents}>
-                    {node.getChildren().map((child) => (
+                <div
+                    className={joinClasses(
+                        styles.nestedContent,
+                        !isExpanded && styles.hidden
+                    )}
+                >
+                    {Object.values(node.children).map((child) => (
                         <Entry node={child} key={child.name} />
                     ))}
                 </div>
-            </div>
+            </>
         );
     } else {
         let subDirs = node.name.split("/");

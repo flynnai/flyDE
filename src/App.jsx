@@ -6,14 +6,15 @@ import useSimFilesystem from "./useSimFilesystem";
 
 function App() {
     const [panes, setPanes] = useState({});
-    const { fileTree } = useSimFilesystem();
+    const { fileTree, loadZip } = useSimFilesystem();
     console.log("Filetree is ", fileTree);
+
     return (
         <div className={styles.main}>
             <div className={styles.workArea}>
-                <MenuColumn />
-                {Object.keys(panes).map((path) => (
-                    <Pane path={path} />
+                <MenuColumn loadZip={loadZip} fileTree={fileTree} />
+                {Object.entries(panes).map(([path, pane]) => (
+                    <Pane path={path} pane={pane} />
                 ))}
             </div>
         </div>

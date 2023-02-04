@@ -3,7 +3,7 @@ import JSZip from "jszip";
 
 const createEntryShape = (name, isFolder) => ({
     name,
-    ...(isFolder && { children: [] }),
+    ...(isFolder && { children: {} }),
 });
 
 // each of these methods operates on the JSZip underlying object, and
@@ -37,10 +37,10 @@ class SimFileSystem {
                     );
                 } else {
                     if (!(subdir in level.children)) {
-                        level[subdir] = createEntryShape(subdir, true);
+                        level.children[subdir] = createEntryShape(subdir, true);
                     }
                 }
-                level = level[subdir];
+                level = level.children[subdir];
             });
         });
         return tree;
