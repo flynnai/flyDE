@@ -6,15 +6,14 @@ import { joinClasses, lastArrayElt } from "./utils";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
-const parsePath = (path) => {
-    let splitPath = path.split("/");
-    let filename = splitPath[splitPath.length - 1];
-    let splitFilename = filename.split(".");
-    let extension = splitFilename[splitFilename.length - 1];
-    return [extension];
-};
-
-function Pane({ path, pane, initOffset, closeFile }) {
+function Pane({
+    path,
+    pane,
+    initOffset,
+    closeFile,
+    movePaneToFront,
+    isActive,
+}) {
     console.log("Rendering pane:", pane);
     const [offset, setOffset] = useState({ x: initOffset.x, y: initOffset.y });
     const [movingOffset, setMovingOffset] = useState({ x: 0, y: 0 });
@@ -83,7 +82,9 @@ function Pane({ path, pane, initOffset, closeFile }) {
             style={{
                 left: offset.x + movingOffset.x,
                 top: offset.y + movingOffset.y,
+                zIndex: pane.order,
             }}
+            onMouseDown={() => !isActive && movePaneToFront(path)}
         >
             <div className={styles.header} ref={paneHeaderRef}>
                 <div className={styles.filename}>

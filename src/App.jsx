@@ -15,8 +15,11 @@ function App() {
         "foo/bar.js": {
             content:
                 "asdkfj aoisdfh asdf asdioas\nasdf\nas\n\nasdf\nasdfansdfasdfaiojwofw.js",
+            order: 0,
         },
     });
+    const [activePane, setActivePane] = useState(null);
+
     const { fileTree, loadZip, getFileContents } = useSimFilesystem();
     console.log("Filetree is ", fileTree);
 
@@ -29,12 +32,42 @@ function App() {
             ...panes,
             [path]: {
                 content: await getFileContents(path),
+                order: Object.values(panes).length,
             },
         });
     };
 
     const closeFile = (path) => {
         setPanes({ ...omit(path, panes) });
+    };
+
+    const movePaneToFront = (path) => {
+        if (activePane === path) {
+            // already at front
+            return;
+        }
+
+        // set pane at `path` to highest order
+        setPanes((curr) => {
+            let oldOrder = curr[path].order;
+            // for everything >= prevOrder, decrement
+            const newPanes = {};
+            for (const [otherPath, pane] of Object.entries(curr)) {
+                if (path === otherPath) {
+                    newPanes[path] = {
+                        ...pane,
+                        order: Object.entries(curr).length - 1,
+                    };
+                } else {
+                    newPanes[otherPath] = {
+                        ...pane,
+                        order: pane.order - (pane.order >= oldOrder),
+                    };
+                }
+            }
+            return newPanes;
+        });
+        setActivePane(path);
     };
 
     return (
@@ -53,6 +86,8 @@ function App() {
                             initOffset={getInitOffset(i)}
                             key={path}
                             closeFile={closeFile}
+                            movePaneToFront={movePaneToFront}
+                            isActive={activePane === path}
                         />
                     ))}
                 </div>
