@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import styles from "./App.module.scss";
-import FileExplorer from "./FileExplorer";
+import MenuColumn from "./MenuColumn";
 import Pane from "./Pane";
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
     return (
         <div className={styles.main}>
             <div className={styles.workArea}>
-                <FileExplorer />
+                <MenuColumn />
                 {panesPaths.map((path) => (
                     <Pane path={path} />
                 ))}

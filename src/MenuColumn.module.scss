@@ -1,0 +1,13 @@
+.main {
+    display: flex;
+    flex-flow: column nowrap;
+    .topRow {
+        display: flex;
+        flex-flow: row nowrap;
+        .zipFilename {
+        }
+
+        .menu {
+        }
+    }
+}
