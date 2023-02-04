@@ -37,4 +37,10 @@
             }
         }
     }
+
+    &.active {
+        .header {
+            cursor: move;
+        }
+    }
 }

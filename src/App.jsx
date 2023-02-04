@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import styles from "./App.module.scss";
 import MenuColumn from "./MenuColumn";
 import Pane from "./Pane";
@@ -14,18 +14,21 @@ function App() {
         "foo/bar.js": { name: "bar.js" },
     });
     const { fileTree, loadZip } = useSimFilesystem();
+    const paneContainerRef = useRef(null);
     console.log("Filetree is ", fileTree);
 
     return (
         <div className={styles.main}>
             <div className={styles.workArea}>
                 <MenuColumn loadZip={loadZip} fileTree={fileTree} />
-                <div className={styles.paneContainer}>
+                <div className={styles.paneContainer} ref={paneContainerRef}>
                     {Object.entries(panes).map(([path, pane], i) => (
                         <Pane
                             path={path}
                             pane={pane}
                             initOffset={getInitOffset(i)}
+                            paneContainerRef={paneContainerRef}
+                            key={path}
                         />
                     ))}
                 </div>
