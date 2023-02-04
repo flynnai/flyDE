@@ -1,8 +1,8 @@
-import './App.css';
+import styles from './App.module.scss';
 
 function App() {
   return (
-    <div>asdf</div>
+    <div className={styles.main}>asdf</div>
   );
 }
 
