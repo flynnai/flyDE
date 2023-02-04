@@ -1,10 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./Pane.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faFile } from "@fortawesome/free-solid-svg-icons";
 import { joinClasses, lastArrayElt } from "./utils";
-import SyntaxHighlighter from "react-syntax-highlighter";
-import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import CodeEditor from "./CodeEditor";
 
 function Pane({
     path,
@@ -98,19 +97,9 @@ function Pane({
                     onClick={() => closeFile(path)}
                 />
             </div>
-            {/* <pre className={styles.fileContents}>
-                {pane.content.split("\n").map((line, i) => (
-                    <span key={i}>{line}</span>
-                ))}
-            </pre> */}
-            <SyntaxHighlighter
-                language={extension}
-                style={docco}
-                className={styles.highlightedContents}
-                showLineNumbers
-            >
-                {pane.content}
-            </SyntaxHighlighter>
+            <div className={styles.editorWrapper}>
+                <CodeEditor language={extension} content={pane.content} />
+            </div>
         </div>
     );
 }
