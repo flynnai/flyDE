@@ -4,7 +4,7 @@ import { joinClasses } from "./utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
-function Entry({ node }) {
+function Entry({ node, openFile }) {
     const [isExpanded, setIsExpanded] = useState(true);
     console.log("Rendering entry for node", node.children);
     if ("children" in node) {
@@ -32,7 +32,11 @@ function Entry({ node }) {
                     )}
                 >
                     {Object.values(node.children).map((child) => (
-                        <Entry node={child} key={child.name} />
+                        <Entry
+                            node={child}
+                            key={child.name}
+                            openFile={openFile}
+                        />
                     ))}
                 </div>
             </>
@@ -41,7 +45,10 @@ function Entry({ node }) {
         let subDirs = node.name.split("/");
         let filename = subDirs[subDirs.length - 1];
         return (
-            <div className={joinClasses(styles.entryWrapper, styles.file)}>
+            <div
+                className={joinClasses(styles.entryWrapper, styles.file)}
+                onClick={() => openFile(node.name)}
+            >
                 {filename}
             </div>
         );

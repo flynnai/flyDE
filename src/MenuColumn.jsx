@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useRef, useState } from "react";
 
-function MenuColumn({ fileTree, loadZip }) {
+function MenuColumn({ fileTree, loadZip, openFile }) {
     const [hasUploaded, setHasUploaded] = useState(false);
     const [menuWidth, setMenuWidth] = useState(null);
     const dragHandleRef = useRef(null);
@@ -69,7 +69,7 @@ function MenuColumn({ fileTree, loadZip }) {
                 {!hasUploaded && (
                     <input type="file" onChange={handleFileUpload} />
                 )}
-                <FileExplorer fileTree={fileTree} />
+                <FileExplorer fileTree={fileTree} openFile={openFile} />
             </div>
             <div className={styles.dragHandle} ref={dragHandleRef}>
                 &nbsp;

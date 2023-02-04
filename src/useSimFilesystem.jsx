@@ -45,6 +45,10 @@ class SimFileSystem {
         });
         return tree;
     }
+
+    async getFileContents(path) {
+        return await this.zip.file(path).async("string");
+    }
 }
 
 const useSimFilesystem = () => {
@@ -54,6 +58,7 @@ const useSimFilesystem = () => {
     return {
         fileTree,
         loadZip: (file) => filesys.loadZip(file, setFileTree),
+        getFileContents: (path) => filesys.getFileContents(path),
     };
 };
 

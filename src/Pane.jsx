@@ -9,20 +9,18 @@ const getFilename = (path) => {
     return splitPath[splitPath.length - 1];
 };
 
-function Pane({ path, pane, initOffset, paneContainerRef }) {
+function Pane({ path, pane, initOffset }) {
+    console.log("Rendering pane:", pane);
     const [offset, setOffset] = useState({ x: initOffset.x, y: initOffset.y });
     const [movingOffset, setMovingOffset] = useState({ x: 0, y: 0 });
-    const paneRef = useRef(null);
     const paneHeaderRef = useRef(null);
 
     const filename = getFilename(path);
 
     // moveable panes logic
     useEffect(() => {
-        const paneElt = paneRef.current;
         const paneHeader = paneHeaderRef.current;
-        const pageContainer = paneContainerRef.current;
-        if (paneElt && paneHeader && pageContainer) {
+        if (paneHeader) {
             let startPos = null;
 
             const mouseDown = (e) => {
@@ -73,8 +71,6 @@ function Pane({ path, pane, initOffset, paneContainerRef }) {
         }
     }, [offset]);
 
-    const contents = JSON.stringify(pane, null, 2);
-
     return (
         <div
             className={joinClasses(styles.main, "FIXME" && styles.active)}
@@ -82,7 +78,6 @@ function Pane({ path, pane, initOffset, paneContainerRef }) {
                 left: offset.x + movingOffset.x,
                 top: offset.y + movingOffset.y,
             }}
-            ref={paneRef}
         >
             <div className={styles.header} ref={paneHeaderRef}>
                 <div className={styles.filename}>
@@ -96,7 +91,7 @@ function Pane({ path, pane, initOffset, paneContainerRef }) {
                 />
             </div>
             <pre className={styles.fileContents}>
-                {contents.split("\n").map((line, i) => (
+                {pane.content.split("\n").map((line, i) => (
                     <span key={i}>{line}</span>
                 ))}
             </pre>
