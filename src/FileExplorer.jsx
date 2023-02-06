@@ -7,7 +7,13 @@ function FileExplorer({ fileTree, openFile }) {
     }
     return (
         <div className={styles.main}>
-            <ExplorerEntry node={fileTree.root} openFile={openFile} />
+            {Object.values(fileTree.root.children).map((child) => (
+                <ExplorerEntry
+                    node={child}
+                    key={child.name}
+                    openFile={openFile}
+                />
+            ))}
         </div>
     );
 }

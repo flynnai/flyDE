@@ -4,7 +4,7 @@ import { joinClasses } from "./utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
-function Entry({ node, openFile }) {
+function ExplorerEntry({ node, openFile }) {
     const [isExpanded, setIsExpanded] = useState(true);
     console.log("Rendering entry for node", node.children);
     if ("children" in node) {
@@ -32,7 +32,7 @@ function Entry({ node, openFile }) {
                     )}
                 >
                     {Object.values(node.children).map((child) => (
-                        <Entry
+                        <ExplorerEntry
                             node={child}
                             key={child.name}
                             openFile={openFile}
@@ -55,4 +55,4 @@ function Entry({ node, openFile }) {
     }
 }
 
-export default Entry;
+export default ExplorerEntry;
