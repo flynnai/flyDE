@@ -103,6 +103,7 @@ function Pane({
                     language={extension}
                     content={content}
                     setContent={setContent}
+                    path={path}
                 />
             </div>
         </div>

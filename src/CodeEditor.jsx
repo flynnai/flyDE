@@ -3,15 +3,16 @@ import SyntaxHighlighter from "react-syntax-highlighter";
 import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import styles from "./CodeEditor.module.scss";
 
-const CodeEditor = React.memo(({ content, setContent, extension }) => {
+const CodeEditor = React.memo(({ content, setContent, extension, path }) => {
     const inputRef = useRef(null);
+    const preId = styles.editorInput + path.replaceAll("/", "..");
 
     // mirror textarea and pre scroll heights
     useEffect(() => {
         const input = inputRef.current;
-        const pre = document.querySelector("." + styles.highlightedContents);
         if (input) {
             const onResize = () => {
+                const pre = document.getElementById(preId); // hack since we can't ref the pre
                 pre.scrollTop = input.scrollTop;
                 pre.scrollLeft = input.scrollLeft;
             };
@@ -101,6 +102,7 @@ const CodeEditor = React.memo(({ content, setContent, extension }) => {
                 className={styles.highlightedContents}
                 showLineNumbers
                 lineNumberStyle={{ minWidth: "1.25em", paddingRight: "1em" }}
+                id={preId}
             >
                 {content}
             </SyntaxHighlighter>
