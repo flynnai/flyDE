@@ -11,6 +11,7 @@ const CodeEditor = React.memo(({ content, setContent, extension }) => {
         if (input) {
             const onResize = () => {
                 pre.scrollTop = input.scrollTop;
+                pre.scrollLeft = input.scrollLeft;
             };
             input.addEventListener("scroll", onResize);
             return () => {
