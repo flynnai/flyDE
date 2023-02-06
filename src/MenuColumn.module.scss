@@ -33,6 +33,30 @@
                 }
             }
         }
+
+        .uploadWrapper {
+            display: flex;
+            flex-flow: column nowrap;
+            align-items: center;
+            justify-content: center;
+            .fileInput {
+                display: none;
+            }
+            .uploadFile {
+                color: white;
+                font-size: 0.75rem;
+                border: none;
+                outline: none;
+                padding: 0.75em;
+                border-radius: 5px;
+                cursor: pointer;
+                background-color: rgb(0, 88, 170);
+                transition: background-color base.$hover-timing;
+                &:hover {
+                    background-color: rgb(17, 123, 222);
+                }
+            }
+        }
     }
     .dragHandle {
         height: 100%;

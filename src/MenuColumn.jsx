@@ -10,6 +10,7 @@ function MenuColumn({ fileTree, loadZip, openFile }) {
     const [menuWidth, setMenuWidth] = useState(null);
     const dragHandleRef = useRef(null);
     const dragWrapperRef = useRef(null);
+    const fileInputRef = useRef(null);
     const handleFileUpload = async (e) => {
         if (!e.target.files.length) {
             // TODO cleanup other files
@@ -67,7 +68,21 @@ function MenuColumn({ fileTree, loadZip, openFile }) {
                     </div>
                 </div>
                 {!hasUploaded && (
-                    <input type="file" onChange={handleFileUpload} />
+                    <div className={styles.uploadWrapper}>
+                        <input
+                            type="file"
+                            accept=".zip"
+                            onChange={handleFileUpload}
+                            className={styles.fileInput}
+                            ref={fileInputRef}
+                        />
+                        <button
+                            className={styles.uploadFile}
+                            onClick={() => fileInputRef.current.click()}
+                        >
+                            Upload .zip File
+                        </button>
+                    </div>
                 )}
                 <FileExplorer fileTree={fileTree} openFile={openFile} />
             </div>
