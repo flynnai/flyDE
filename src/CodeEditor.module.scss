@@ -8,6 +8,8 @@
     .editorInput,
     .highlightedContents {
         position: absolute;
+        top: 0;
+        left: 0;
         margin: 0;
         padding: 0;
         height: 100%;
@@ -19,15 +21,14 @@
         resize: none;
         line-height: 1.2em;
         overflow: scroll;
-        white-space: pre-wrap;
-        word-break: keep-all;
-        overflow-wrap: break-word;
+        white-space: pre;
+        // word-break: keep-all;
+        // overflow-wrap: break-word;
         background-color: transparent;
         box-sizing: border-box;
 
         border-radius: base.$window-border-radius;
         padding: $window-padding !important;
-        // color: #333;
     }
 
     .highlightedContents {
@@ -39,5 +40,7 @@
         padding-left: calc(
             $window-padding + 1.25em + 1em
         ) !important; // align with line numbers
+        color: transparent;
+        caret-color: #333;
     }
 }

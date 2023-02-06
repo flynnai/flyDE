@@ -16,6 +16,7 @@ function Pane({
     console.log("Rendering pane:", pane);
     const [offset, setOffset] = useState({ x: initOffset.x, y: initOffset.y });
     const [movingOffset, setMovingOffset] = useState({ x: 0, y: 0 });
+    const [content, setContent] = useState(pane.content);
     const paneHeaderRef = useRef(null);
 
     const filename = lastArrayElt(path.split("/"));
@@ -98,7 +99,11 @@ function Pane({
                 />
             </div>
             <div className={styles.editorWrapper}>
-                <CodeEditor language={extension} content={pane.content} />
+                <CodeEditor
+                    language={extension}
+                    content={content}
+                    setContent={setContent}
+                />
             </div>
         </div>
     );
