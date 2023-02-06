@@ -1,14 +1,12 @@
 @use "base";
 .main {
-    $window-border-radius: 4px;
-
     position: absolute;
     width: 400px;
     height: 300px;
     background-color: white;
     box-sizing: border-box;
     border: 1px solid #ccc;
-    border-radius: $window-border-radius;
+    border-radius: base.$window-border-radius;
 
     $header-height: 1.35rem;
     .header {
@@ -34,8 +32,7 @@
 
     .editorWrapper {
         height: calc(100% - $header-height);
-        overflow: scroll;
-        border-radius: $window-border-radius;
+        border-radius: base.$window-border-radius;
     }
 
     &.active {

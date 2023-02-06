@@ -1,5 +1,43 @@
-.highlightedContents {
-    font-size: 0.75rem;
-    margin: 0;
+@use "base";
+.main {
+    position: relative;
     height: 100%;
+
+    $window-padding: 1em;
+
+    .editorInput,
+    .highlightedContents {
+        position: absolute;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+        font-family: monospace;
+        font-size: 0.75rem;
+        border: none;
+        outline: none;
+        resize: none;
+        line-height: 1.2em;
+        overflow: scroll;
+        white-space: pre-wrap;
+        word-break: keep-all;
+        overflow-wrap: break-word;
+        background-color: transparent;
+        box-sizing: border-box;
+
+        border-radius: base.$window-border-radius;
+        padding: $window-padding !important;
+        // color: #333;
+    }
+
+    .highlightedContents {
+        font-size: 0.75rem;
+    }
+
+    .editorInput {
+        z-index: 100;
+        padding-left: calc(
+            $window-padding + 1.25em + 1em
+        ) !important; // align with line numbers
+    }
 }

@@ -5,15 +5,19 @@ import styles from "./CodeEditor.module.scss";
 
 const CodeEditor = React.memo(({ content, extension }) => {
     return (
-        <SyntaxHighlighter
-            language={extension}
-            style={docco}
-            className={styles.highlightedContents}
-            showLineNumbers
-            wrapLongLines
-        >
-            {content}
-        </SyntaxHighlighter>
+        <div className={styles.main}>
+            <textarea className={styles.editorInput} />
+            <SyntaxHighlighter
+                language={extension}
+                style={docco}
+                className={styles.highlightedContents}
+                showLineNumbers
+                wrapLongLines
+                lineNumberStyle={{ width: "1.25em", paddingRight: "1em" }}
+            >
+                {content}
+            </SyntaxHighlighter>
+        </div>
     );
 });
 
