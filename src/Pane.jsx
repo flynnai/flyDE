@@ -83,6 +83,17 @@ function Pane({
         }
     }, [offset]);
 
+    const saveFile = () => {
+        console.log("SAVING>.....");
+        writeToFile(path, content);
+        setIsDirty(false);
+    };
+
+    useEffect(() => {
+        console.log("Pane.content changed");
+        setContent(pane.content);
+    }, [pane.content]);
+
     return (
         <div
             className={joinClasses(styles.main, isActive && styles.active)}
@@ -115,20 +126,15 @@ function Pane({
                     </div>
                 </div>
             </div>
-            <div
-                className={styles.editorWrapper}
-                onInput={() => console.log("Fuck this.")}
-            >
+            <div className={styles.editorWrapper}>
                 <CodeEditor
                     language={extension}
                     content={content}
                     setContent={updateContent}
+                    writeToFile={writeToFile}
                     path={path}
                 />
             </div>
-            <button onClick={() => writeToFile(path, content)}>
-                Clickme, ya bastard
-            </button>
         </div>
     );
 }

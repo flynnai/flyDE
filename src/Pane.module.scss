@@ -39,8 +39,6 @@
                 align-items: center;
                 justify-content: center;
                 .closeButtonIcon {
-                    // black unsaved dot
-                    background-color: black;
                     width: 1em;
                     height: 1em;
                     border-radius: 1000px;
@@ -50,6 +48,10 @@
             &.isDirty {
                 em {
                     display: block;
+                }
+                .closeButtonIcon {
+                    // black unsaved dot
+                    background-color: black;
                 }
             }
         }

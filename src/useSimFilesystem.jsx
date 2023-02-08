@@ -50,8 +50,9 @@ class SimFileSystem {
         return await this.zip.file(path).async("string");
     }
 
-    async writeToFile(path, contents) {
-        return this.zip.file(path, contents);
+    writeToFile(path, contents) {
+        console.log("Writing ", contents, "to file", path);
+        this.zip.file(path, contents);
     }
 }
 
