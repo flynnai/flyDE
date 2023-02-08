@@ -19,6 +19,13 @@
             padding: 0.5em;
 
             .zipFilename {
+                display: flex;
+                flex-flow: row nowrap;
+                align-items: center;
+                font-size: 0.75em;
+                input {
+                    font-size: 1em;
+                }
             }
 
             .menu {

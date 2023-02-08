@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from "react";
 function MenuColumn({ fileTree, loadZip, openFile, downloadZip }) {
     const [hasUploaded, setHasUploaded] = useState(false);
     const [menuWidth, setMenuWidth] = useState(null);
+    const [filename, setFilename] = useState("");
     const dragHandleRef = useRef(null);
     const dragWrapperRef = useRef(null);
     const fileInputRef = useRef(null);
@@ -18,6 +19,7 @@ function MenuColumn({ fileTree, loadZip, openFile, downloadZip }) {
         }
         const file = e.target.files[0];
         await loadZip(file);
+        setFilename(file.name.slice(0, -4)); // shave off `.zip`
         setHasUploaded(true);
     };
 
@@ -61,11 +63,15 @@ function MenuColumn({ fileTree, loadZip, openFile, downloadZip }) {
             <div className={styles.dragWrapper} ref={dragWrapperRef}>
                 <div className={styles.topRow}>
                     <div className={styles.zipFilename}>
-                        <EditableField />
+                        <EditableField
+                            content={filename}
+                            setContent={setFilename}
+                        />
+                        .zip
                     </div>
                     <div
                         className={styles.menu}
-                        onClick={() => downloadZip("NEW FILENAME HERE")}
+                        onClick={() => downloadZip(filename + ".zip")}
                     >
                         <FontAwesomeIcon icon={faEllipsisVertical} />
                     </div>
