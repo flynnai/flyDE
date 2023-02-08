@@ -61,21 +61,22 @@ function MenuColumn({ fileTree, loadZip, openFile, downloadZip }) {
             style={menuWidth !== null ? { width: `${menuWidth}px` } : {}}
         >
             <div className={styles.dragWrapper} ref={dragWrapperRef}>
-                <div className={styles.topRow}>
-                    <div className={styles.zipFilename}>
+                {hasUploaded && (
+                    <div className={styles.topRow}>
                         <EditableField
                             content={filename}
                             setContent={setFilename}
+                            postfix=".zip"
                         />
-                        .zip
+
+                        <div
+                            className={styles.menu}
+                            onClick={() => downloadZip(filename + ".zip")}
+                        >
+                            <FontAwesomeIcon icon={faEllipsisVertical} />
+                        </div>
                     </div>
-                    <div
-                        className={styles.menu}
-                        onClick={() => downloadZip(filename + ".zip")}
-                    >
-                        <FontAwesomeIcon icon={faEllipsisVertical} />
-                    </div>
-                </div>
+                )}
                 {!hasUploaded && (
                     <div className={styles.uploadWrapper}>
                         <input
