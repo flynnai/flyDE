@@ -20,7 +20,8 @@ function App() {
     });
     const [activePane, setActivePane] = useState(null);
 
-    const { fileTree, loadZip, getFileContents } = useSimFilesystem();
+    const { fileTree, loadZip, getFileContents, writeToFile } =
+        useSimFilesystem();
     console.log("Filetree is ", fileTree);
 
     const openFile = async (path) => {
@@ -85,6 +86,7 @@ function App() {
                             initOffset={getInitOffset(i)}
                             key={path}
                             closeFile={closeFile}
+                            writeToFile={writeToFile}
                             movePaneToFront={movePaneToFront}
                             isActive={activePane === path}
                         />

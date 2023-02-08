@@ -49,6 +49,10 @@ class SimFileSystem {
     async getFileContents(path) {
         return await this.zip.file(path).async("string");
     }
+
+    async writeToFile(path, contents) {
+        return this.zip.file(path, contents);
+    }
 }
 
 const useSimFilesystem = () => {
@@ -59,6 +63,7 @@ const useSimFilesystem = () => {
         fileTree,
         loadZip: (file) => filesys.loadZip(file, setFileTree),
         getFileContents: (path) => filesys.getFileContents(path),
+        writeToFile: (path, contents) => filesys.writeToFile(path, contents),
     };
 };
 

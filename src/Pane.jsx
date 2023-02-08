@@ -10,6 +10,7 @@ function Pane({
     pane,
     initOffset,
     closeFile,
+    writeToFile,
     movePaneToFront,
     isActive,
 }) {
@@ -125,6 +126,9 @@ function Pane({
                     path={path}
                 />
             </div>
+            <button onClick={() => writeToFile(path, content)}>
+                Clickme, ya bastard
+            </button>
         </div>
     );
 }
