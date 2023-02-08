@@ -101,7 +101,10 @@ const CodeEditor = React.memo(({ content, setContent, extension, path }) => {
                 style={docco}
                 className={styles.highlightedContents}
                 showLineNumbers
-                lineNumberStyle={{ minWidth: "1.25em", paddingRight: "1em" }}
+                lineNumberStyle={{
+                    minWidth: "1.25em",
+                    paddingRight: "1em",
+                }}
                 id={preId}
             >
                 {content}

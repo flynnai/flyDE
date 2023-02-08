@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./Pane.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark, faFile } from "@fortawesome/free-solid-svg-icons";
+import { faXmark, faFile, faCircle } from "@fortawesome/free-solid-svg-icons";
 import { joinClasses, lastArrayElt } from "./utils";
 import CodeEditor from "./CodeEditor";
 
@@ -17,10 +17,16 @@ function Pane({
     const [offset, setOffset] = useState({ x: initOffset.x, y: initOffset.y });
     const [movingOffset, setMovingOffset] = useState({ x: 0, y: 0 });
     const [content, setContent] = useState(pane.content);
+    const [isDirty, setIsDirty] = useState(false);
     const paneHeaderRef = useRef(null);
 
     const filename = lastArrayElt(path.split("/"));
     const extension = lastArrayElt(filename.split("."));
+
+    const updateContent = (newVal) => {
+        setIsDirty(true);
+        setContent(newVal);
+    };
 
     // moveable panes logic
     useEffect(() => {
@@ -92,17 +98,30 @@ function Pane({
                     &nbsp;
                     {filename}
                 </div>
-                <FontAwesomeIcon
-                    icon={faXmark}
-                    className={styles.closeButton}
-                    onClick={() => closeFile(path)}
-                />
+                <div
+                    className={joinClasses(
+                        styles.closeButtonWrapper,
+                        isDirty && styles.isDirty
+                    )}
+                >
+                    <em>Unsaved</em>
+                    <div className={styles.closeButton}>
+                        <FontAwesomeIcon
+                            icon={faXmark}
+                            className={styles.closeButtonIcon}
+                            onClick={() => closeFile(path)}
+                        />
+                    </div>
+                </div>
             </div>
-            <div className={styles.editorWrapper}>
+            <div
+                className={styles.editorWrapper}
+                onInput={() => console.log("Fuck this.")}
+            >
                 <CodeEditor
                     language={extension}
                     content={content}
-                    setContent={setContent}
+                    setContent={updateContent}
                     path={path}
                 />
             </div>

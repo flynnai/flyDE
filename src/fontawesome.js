@@ -5,6 +5,7 @@ import {
     faChevronRight,
     faXmark,
     faFile,
+    faCircle,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(faEllipsisVertical, faChevronRight, faXmark, faFile);
