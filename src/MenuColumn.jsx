@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useRef, useState } from "react";
 
-function MenuColumn({ fileTree, loadZip, openFile }) {
+function MenuColumn({ fileTree, loadZip, openFile, downloadZip }) {
     const [hasUploaded, setHasUploaded] = useState(false);
     const [menuWidth, setMenuWidth] = useState(null);
     const dragHandleRef = useRef(null);
@@ -63,7 +63,10 @@ function MenuColumn({ fileTree, loadZip, openFile }) {
                     <div className={styles.zipFilename}>
                         <EditableField />
                     </div>
-                    <div className={styles.menu}>
+                    <div
+                        className={styles.menu}
+                        onClick={() => downloadZip("NEW FILENAME HERE")}
+                    >
                         <FontAwesomeIcon icon={faEllipsisVertical} />
                     </div>
                 </div>

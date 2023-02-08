@@ -20,7 +20,7 @@ function App() {
     });
     const [activePane, setActivePane] = useState(null);
 
-    const { fileTree, loadZip, getFileContents, writeToFile } =
+    const { fileTree, loadZip, getFileContents, writeToFile, downloadZip } =
         useSimFilesystem();
     console.log("Filetree is ", fileTree);
 
@@ -77,6 +77,7 @@ function App() {
                     loadZip={loadZip}
                     fileTree={fileTree}
                     openFile={openFile}
+                    downloadZip={downloadZip}
                 />
                 <div className={styles.paneContainer}>
                     {Object.entries(panes).map(([path, pane], i) => (

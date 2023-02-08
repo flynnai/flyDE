@@ -54,6 +54,27 @@ class SimFileSystem {
         console.log("Writing ", contents, "to file", path);
         this.zip.file(path, contents);
     }
+
+    async downloadZip(filename) {
+        const zip = await this.zip.generateAsync({ type: "blob" });
+        console.log("Zip:", zip);
+
+        const blobUrl = URL.createObjectURL(zip);
+
+        const link = document.createElement("a");
+        link.href = blobUrl;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.dispatchEvent(
+            new MouseEvent("click", {
+                bubbles: true,
+                cancelable: true,
+                view: window,
+            })
+        );
+
+        document.body.removeChild(link);
+    }
 }
 
 const useSimFilesystem = () => {
@@ -65,6 +86,7 @@ const useSimFilesystem = () => {
         loadZip: (file) => filesys.loadZip(file, setFileTree),
         getFileContents: (path) => filesys.getFileContents(path),
         writeToFile: (path, contents) => filesys.writeToFile(path, contents),
+        downloadZip: (filename) => filesys.downloadZip(filename),
     };
 };
 
