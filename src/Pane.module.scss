@@ -39,7 +39,8 @@
                 align-items: center;
                 justify-content: center;
                 .closeButtonIcon {
-                    background-color: transparent;
+                    // black unsaved dot
+                    background-color: black;
                     width: 1em;
                     height: 1em;
                     border-radius: 1000px;
@@ -49,10 +50,6 @@
             &.isDirty {
                 em {
                     display: block;
-                }
-                .closeButton:not(:hover) .closeButtonIcon {
-                    // make black dot
-                    background-color: black;
                 }
             }
         }
@@ -67,10 +64,16 @@
         box-shadow: 5px 5px 15px -3px rgba(0, 0, 0, 0.25);
         .header {
             cursor: move;
-            .closeButton {
-                &:hover {
-                    background-color: rgba(255, 255, 255, 0.5);
-                    cursor: pointer;
+            .closeButtonWrapper {
+                .closeButton {
+                    &:hover {
+                        background-color: rgba(255, 255, 255, 0.5);
+                        cursor: pointer;
+                    }
+                }
+                &.isDirty .closeButton:hover .closeButtonIcon {
+                    // hide black dot
+                    background-color: transparent;
                 }
             }
         }
