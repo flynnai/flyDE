@@ -5,7 +5,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useRef, useState } from "react";
 
-function MenuColumn({ fileTree, loadZip, openFile, downloadZip }) {
+function MenuColumn({
+    fileTree,
+    loadZip,
+    openFile,
+    downloadZip,
+    hydrateFromLocalStorage,
+}) {
     const [hasUploaded, setHasUploaded] = useState(false);
     const [menuWidth, setMenuWidth] = useState(null);
     const [filename, setFilename] = useState("");
@@ -34,8 +40,14 @@ function MenuColumn({ fileTree, loadZip, openFile, downloadZip }) {
         setHasUploaded(true);
     };
 
-    // hydrate localStorage state
-    useEffect(() => {}, []);
+    const handleHydrateLocal = async () => {
+        const foundFilename = await hydrateFromLocalStorage();
+        console.log("Found this filename", foundFilename);
+        if (foundFilename !== null) {
+            setFilename(foundFilename);
+            setHasUploaded(true);
+        }
+    };
 
     useEffect(() => {
         const dragHandle = dragHandleRef.current;
@@ -114,7 +126,10 @@ function MenuColumn({ fileTree, loadZip, openFile, downloadZip }) {
                             <strong>Try Template</strong>
                         </button>
                         <span>- or -</span>
-                        <button className={styles.hydrateLocal}>
+                        <button
+                            className={styles.hydrateLocal}
+                            onClick={handleHydrateLocal}
+                        >
                             Use Local Changes
                         </button>
                     </div>
