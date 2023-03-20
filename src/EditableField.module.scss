@@ -4,6 +4,14 @@
     align-items: center;
     font-size: 0.75em;
     cursor: pointer;
+    color: white;
+
+    &.editing {
+        input {
+            background-color: transparent;
+            color: white;
+        }
+    }
 
     &:not(.editing) {
         width: 100%;

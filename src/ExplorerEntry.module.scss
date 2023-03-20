@@ -1,6 +1,7 @@
 @use "base";
 .entryWrapper {
-    background-color: white;
+    background-color: #150050;
+    color: white;
     transition: background-color base.$hover-timing;
     padding: 0.3em;
     width: 100%;
@@ -13,7 +14,7 @@
     cursor: default;
 
     &:hover {
-        background-color: #efefef;
+        background-color: #3f0071;
     }
 
     &.folder {
