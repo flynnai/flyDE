@@ -1,12 +1,14 @@
 @use "base";
 .entryWrapper {
-    background-color: #150050;
-    color: white;
+    background-color: base.$background-color-secondary;
+    color: base.$text-color-primary;
     transition: background-color base.$hover-timing;
     padding: 0.3em;
     width: 100%;
     box-sizing: border-box;
     font-size: 0.8rem;
+    margin-top: 1px;
+
     .icon {
         margin-right: 0.25em;
     }
@@ -14,7 +16,7 @@
     cursor: default;
 
     &:hover {
-        background-color: #3f0071;
+        background-color: base.$background-color-secondary-hover;
     }
 
     &.folder {
@@ -28,6 +30,11 @@
     }
 
     &.file {
+    }
+
+    .label {
+        display: flex;
+        flex-flow: row nowrap;
     }
 }
 

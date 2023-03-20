@@ -3,7 +3,7 @@
 .main {
     width: auto;
     height: 100vh;
-    background-color: #000000;
+    background-color: base.$background-color-tertiary;
 
     display: flex;
     flex-flow: row nowrap;
@@ -23,7 +23,7 @@
                 border-radius: 4px;
                 background-color: transparent;
                 transition: background-color base.$hover-timing;
-                color: white;
+                color: base.$text-color-primary;
 
                 &:hover {
                     background-color: rgba(255, 255, 255, 0.5);
@@ -43,24 +43,24 @@
             .uploadFile {
                 width: 95px;
                 margin: 8px;
-                color: white;
+                color: base.$text-color-primary;
                 font-size: 0.75rem;
                 border: none;
                 outline: none;
                 padding: 0.75em;
                 border-radius: 5px;
                 cursor: pointer;
-                background-color: rgb(0, 88, 170);
-                transition: background-color base.$hover-timing;
+                background-color: base.$background-color-primary;
+                transition: filter base.$hover-timing;
                 &:hover {
-                    background-color: rgb(17, 123, 222);
+                    filter: brightness(120%);
                 }
             }
         }
     }
     .dragHandle {
         height: 100%;
-        background-color: #fb2576;
+        background-color: base.$background-color-tertiary-hover;
         cursor: ew-resize;
     }
 }

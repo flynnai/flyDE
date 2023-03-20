@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
-import { solarizedDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import styles from "./CodeEditor.module.scss";
 
 const CodeEditor = React.memo(
@@ -106,7 +106,7 @@ const CodeEditor = React.memo(
                 />
                 <SyntaxHighlighter
                     language={extension}
-                    style={solarizedDark}
+                    style={docco}
                     className={styles.highlightedContents}
                     showLineNumbers
                     lineNumberStyle={{

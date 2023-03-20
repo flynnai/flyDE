@@ -1,15 +1,17 @@
+@use "base";
+
 .main {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
     font-size: 0.75em;
     cursor: pointer;
-    color: white;
+    color: base.$text-color-primary;
 
     &.editing {
         input {
             background-color: transparent;
-            color: white;
+            color: base.$text-color-primary;
         }
     }
 

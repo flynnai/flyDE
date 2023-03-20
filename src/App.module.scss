@@ -1,3 +1,5 @@
+@use "base";
+
 .main {
     width: 100%;
     height: 100vh;
@@ -6,7 +8,7 @@
         display: flex;
         flex-flow: row nowrap;
         .paneContainer {
-            background-color: #150050;
+            background-color: base.$background-color-primary;
             width: 100%;
             position: relative;
         }
