@@ -40,7 +40,13 @@
             .fileInput {
                 display: none;
             }
-            .uploadFile {
+            span {
+                color: base.$text-color-primary;
+                font-size: 0.75rem;
+            }
+            .uploadFile,
+            .hydrateLocal,
+            .tryTemplate {
                 width: 95px;
                 margin: 8px;
                 color: base.$text-color-primary;

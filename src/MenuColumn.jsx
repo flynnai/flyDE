@@ -23,6 +23,20 @@ function MenuColumn({ fileTree, loadZip, openFile, downloadZip }) {
         setHasUploaded(true);
     };
 
+    const tryTemplate = async () => {
+        const templateFilename = "asdf.zip";
+        const response = await fetch(
+            process.env.PUBLIC_URL + "/" + templateFilename
+        );
+        const blob = response.blob();
+        await loadZip(blob);
+        setFilename(templateFilename.slice(0, -4)); // shave off `.zip`
+        setHasUploaded(true);
+    };
+
+    // hydrate localStorage state
+    useEffect(() => {}, []);
+
     useEffect(() => {
         const dragHandle = dragHandleRef.current;
         const dragWrapper = dragWrapperRef.current;
@@ -90,7 +104,18 @@ function MenuColumn({ fileTree, loadZip, openFile, downloadZip }) {
                             className={styles.uploadFile}
                             onClick={() => fileInputRef.current.click()}
                         >
-                            Upload .zip File
+                            Upload .zip
+                        </button>
+                        <span>- or -</span>
+                        <button
+                            className={styles.tryTemplate}
+                            onClick={tryTemplate}
+                        >
+                            <strong>Try Template</strong>
+                        </button>
+                        <span>- or -</span>
+                        <button className={styles.hydrateLocal}>
+                            Use Local Changes
                         </button>
                     </div>
                 )}
