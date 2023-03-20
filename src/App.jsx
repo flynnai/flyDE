@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./App.module.scss";
 import MenuColumn from "./MenuColumn";
 import Pane from "./Pane";
@@ -69,6 +69,19 @@ function App() {
         });
         setActivePane(path);
     };
+
+    // prevent default ⌘ + s behavior
+    useEffect(() => {
+        const onKeyDown = (e) => {
+            if (e.key === "s" && e.metaKey) {
+                e.preventDefault();
+            }
+        };
+        window.addEventListener("keydown", onKeyDown);
+        return () => {
+            window.removeEventListener("keydown", onKeyDown);
+        };
+    }, []);
 
     return (
         <div className={styles.main}>
