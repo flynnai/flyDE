@@ -4,4 +4,13 @@
     align-items: center;
     font-size: 0.75em;
     cursor: pointer;
+
+    &:not(.editing) {
+        width: 100%;
+        background-color: transparent;
+        transition: background-color 0.2s;
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.362);
+        }
+    }
 }

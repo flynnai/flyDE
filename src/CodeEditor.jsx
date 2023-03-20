@@ -4,7 +4,7 @@ import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import styles from "./CodeEditor.module.scss";
 
 const CodeEditor = React.memo(
-    ({ content, setContent, extension, path, writeToFile }) => {
+    ({ content, setContent, extension, path, saveContent }) => {
         const inputRef = useRef(null);
         const preId = styles.editorInput + path.replaceAll("/", "..");
         const fileContentRef = useRef(null);
@@ -84,11 +84,9 @@ const CodeEditor = React.memo(
                         input.setSelectionRange(newCursorPos, newCursorPos);
                     } else if (e.key === "s" && e.metaKey) {
                         // ⌘ + s, save pane
-                        console.log("COMMAND S");
                         // workaround to prevent useEffect reload
                         const content = fileContentRef.current;
-                        e.preventDefault(); // prevent page save
-                        writeToFile(path, content);
+                        saveContent(path, content);
                     }
                 };
                 input.addEventListener("keydown", onKeyDown);

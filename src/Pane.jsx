@@ -83,7 +83,7 @@ function Pane({
         }
     }, [offset]);
 
-    const saveFile = () => {
+    const saveContent = (path, content) => {
         console.log("SAVING>.....");
         writeToFile(path, content);
         setIsDirty(false);
@@ -131,7 +131,7 @@ function Pane({
                     language={extension}
                     content={content}
                     setContent={updateContent}
-                    writeToFile={writeToFile}
+                    saveContent={saveContent}
                     path={path}
                 />
             </div>
