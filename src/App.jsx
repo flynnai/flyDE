@@ -11,13 +11,7 @@ const paneInitOffsets = new Array(10)
 const getInitOffset = (i) => paneInitOffsets[i % paneInitOffsets.length];
 
 function App() {
-    const [panes, setPanes] = useState({
-        "foo/bar.js": {
-            content:
-                "asdkfj aoisdfh asdf asdioas\nasdf\nas\n\nasdf\nasdfansdfasdfaiojwofw.js",
-            order: 0,
-        },
-    });
+    const [panes, setPanes] = useState({});
     const [activePane, setActivePane] = useState(null);
 
     const { fileTree, loadZip, getFileContents, writeToFile, downloadZip } =
